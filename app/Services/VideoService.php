@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Actions\CreateVideoAction;
+use App\Actions\UpdateOrCreateVideoAction;
 use App\Actions\SaveVideoAction;
 use App\Actions\SaveVideoThumbnailAction;
-use App\Dto\CreateVideoDto;
+use App\Dto\UpdateOrCreateVideoDto;
 use App\Models\User;
 use App\Models\Video;
 use App\Queries\VideoQuery;
@@ -26,11 +26,15 @@ readonly class VideoService
             ->paginateForQuery($query);
     }
 
-    public function create(CreateVideoDto $dto, User $user)
-    {
-        $video = App::call(CreateVideoAction::class, [
+    public function updateOrCreate(
+        UpdateOrCreateVideoDto $dto,
+        User $user,
+        ?int $video_id = null
+    ): void {
+        $video = App::call(UpdateOrCreateVideoAction::class, [
             'dto' => $dto,
             'user' => $user,
+            'videoId' => $video_id,
         ]);
 
         App::call(SaveVideoAction::class, [

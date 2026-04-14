@@ -7,7 +7,7 @@ namespace App\Dto;
 use App\Enums\VideoStatus;
 use Illuminate\Http\UploadedFile;
 
-final readonly class CreateVideoDto
+final readonly class UpdateOrCreateVideoDto
 {
     public function __construct(
         public string $title,

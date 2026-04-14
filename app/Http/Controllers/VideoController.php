@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Dto\CreateVideoDto;
+use App\Dto\UpdateOrCreateVideoDto;
 use App\Http\Requests\CreateVideoRequest;
 use App\Http\Requests\IndexVideoRequest;
+use App\Http\Requests\UpdateVideoRequest;
 use App\Http\Resources\IndexVideoResource;
 use App\Services\VideoService;
 use Illuminate\Support\Facades\DB;
@@ -36,9 +37,24 @@ class VideoController extends Controller
         DB::transaction(
             fn () => $this
                 ->videoService
-                ->create(
-                    CreateVideoDto::fromArray($request->safe()->toArray()),
+                ->updateOrCreate(
+                    UpdateOrCreateVideoDto::fromArray($request->safe()->toArray()),
                     $request->user()
+                )
+        );
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function update(UpdateVideoRequest $request, int $video_id): JsonResponse
+    {
+        DB::transaction(
+            fn () => $this
+                ->videoService
+                ->updateOrCreate(
+                    UpdateOrCreateVideoDto::fromArray($request->safe()->toArray()),
+                    $request->user(),
+                    $video_id
                 )
         );
 

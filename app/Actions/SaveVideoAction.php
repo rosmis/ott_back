@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Dto\CreateVideoDto;
+use App\Dto\UpdateOrCreateVideoDto;
 use App\Models\Video;
 use getID3;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +20,7 @@ readonly class SaveVideoAction
     }
 
     public function __invoke(
-        CreateVideoDto $dto,
+        UpdateOrCreateVideoDto $dto,
         Video $video
     ): void {
         if (is_string($video->video_url)) {
