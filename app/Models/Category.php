@@ -18,6 +18,9 @@ use Illuminate\Support\Collection;
  * @property Carbon $updated_at
  * @property Carbon $created_at
  *
+ * Calculated attributes.
+ * @property int $videos_count
+ *
  * Relations
  * @property Collection<int, Video> $videos
  */

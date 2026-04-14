@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Actions\UpdateOrCreateVideoAction;
 use App\Actions\SaveVideoAction;
 use App\Actions\SaveVideoThumbnailAction;
+use App\Actions\UpdateOrCreateVideoAction;
 use App\Dto\UpdateOrCreateVideoDto;
 use App\Models\User;
 use App\Models\Video;
@@ -46,5 +46,12 @@ readonly class VideoService
             'dto' => $dto,
             'video' => $video,
         ]);
+    }
+
+    public function delete(int $video_id): void
+    {
+        Video::query()
+            ->findOrFail($video_id)
+            ->delete();
     }
 }

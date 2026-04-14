@@ -60,4 +60,13 @@ class VideoController extends Controller
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function destroy(int $video_id): JsonResponse
+    {
+        $this
+            ->videoService
+            ->delete($video_id);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
 }
