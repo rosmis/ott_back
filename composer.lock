@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bff2b2cda202fdff6eb5cfb69f51704",
+    "content-hash": "f7d013d54f635f201d7a3ee436017abd",
     "packages": [
         {
             "name": "brick/math",
@@ -3360,6 +3360,58 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.2"
             },
             "time": "2025-12-14T04:43:48+00:00"
+        },
+        {
+            "name": "sylarele/http-query-config",
+            "version": "v0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sylarele/http-query-config.git",
+                "reference": "d2dad66a5547f5981f5ea69a676a569e3dd11073"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sylarele/http-query-config/zipball/d2dad66a5547f5981f5ea69a676a569e3dd11073",
+                "reference": "d2dad66a5547f5981f5ea69a676a569e3dd11073",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^12.0|^13.0",
+                "nesbot/carbon": "^3.9",
+                "php": "^8.3|^8.4|^8.5",
+                "symfony/var-dumper": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^10.0|^11.0",
+                "orchestra/testbench-core": "^10.0|^11.0",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^12.5|^13.0",
+                "rector/rector": "^2.3",
+                "shipmonk/composer-dependency-analyser": "^1.8",
+                "structuraphp/structura": "^0.7.1",
+                "sylarele/php-cs-fixer-config": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sylarele\\HttpQueryConfig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Queries are used to simplify the configuration of filters, scopes, relationships, etc., … and to simplify the pagination of results.",
+            "keywords": [
+                "http-query",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/sylarele/http-query-config/issues",
+                "source": "https://github.com/sylarele/http-query-config/tree/v0.6.0"
+            },
+            "time": "2026-04-02T13:09:18+00:00"
         },
         {
             "name": "symfony/clock",
