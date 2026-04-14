@@ -26,6 +26,7 @@ class IndexVideoResource extends JsonResource
                 fn (): array => [
                     'id' => $this->resource->category->id,
                     'name' => $this->resource->category->name,
+                    'is_published' => $this->resource->category->is_published,
                 ]
             ),
             'user' => $this->whenLoaded(

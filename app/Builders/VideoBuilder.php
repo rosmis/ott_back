@@ -17,4 +17,13 @@ final class VideoBuilder extends Builder
 {
     /** @use HttpBuilder<TModelClass> */
     use HttpBuilder;
+
+    public function whereCategoryId(int $value): self
+    {
+        return $this->whereHas(
+            'category',
+            static fn (Builder $query) => $query
+                ->where('id', '=', $value)
+        );
+    }
 }
