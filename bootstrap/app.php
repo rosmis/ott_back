@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(static function (Middleware $middleware): void {
+        $middleware->statefulApi();
     })
     ->withExceptions(static function (Exceptions $exceptions): void {
         // display exception error message if exception  instance of BusinessException

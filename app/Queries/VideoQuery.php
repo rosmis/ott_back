@@ -15,7 +15,7 @@ use Sylarele\HttpQueryConfig\Transformers\IntegerTransformer;
 /**
  * @extends Query<Video, VideoBuilder>
  *
- * @see VideoBuilder::
+ * @see VideoBuilder::whereCategoryId()
  */
 class VideoQuery extends Query
 {
@@ -41,8 +41,8 @@ class VideoQuery extends Query
             );
 
         $config->sorts(
-            'id',
             'created_at',
+            'published_at',
         );
 
         $config

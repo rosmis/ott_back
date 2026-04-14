@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->string('video_url')->nullable();
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->dateTime('published_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
