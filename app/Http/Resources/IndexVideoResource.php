@@ -28,6 +28,13 @@ class IndexVideoResource extends JsonResource
                     'name' => $this->resource->category->name,
                 ]
             ),
+            'user' => $this->whenLoaded(
+                'user',
+                fn (): array => [
+                    'id' => $this->resource->user->id,
+                    'name' => $this->resource->user->name,
+                ]
+            ),
             'published_at' => $this->resource->published_at,
         ];
     }

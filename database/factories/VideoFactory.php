@@ -41,6 +41,13 @@ class VideoFactory extends Factory
         ]);
     }
 
+    public function setUser(int $userId): self
+    {
+        return $this->state([
+            'created_by_id' => $userId,
+        ]);
+    }
+
     public function withThumbnail(): self
     {
         $file = (string) file_get_contents(storage_path('samples/thumbnail.png'));

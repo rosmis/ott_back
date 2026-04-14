@@ -17,6 +17,12 @@ return new class extends Migration {
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
+            $table->unsignedBigInteger('created_by_id');
+            $table
+                ->foreign('created_by_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('duration_seconds')->nullable();
             $table->string('thumbnail_url')->nullable();

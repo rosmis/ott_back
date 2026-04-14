@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
         VideoFactory::new()
             ->setCategory($category->id)
+            ->setUser($user->id)
             ->withThumbnail()
             ->withVideo()
             ->createMany(5);

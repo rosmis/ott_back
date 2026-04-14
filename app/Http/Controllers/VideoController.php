@@ -22,7 +22,7 @@ class VideoController extends Controller
             ->videoService
             ->list($request->toQuery());
 
-        $videos->loadMissing('category');
+        $videos->loadMissing(['category', 'user']);
 
         return IndexVideoResource::collection($videos)->response();
     }

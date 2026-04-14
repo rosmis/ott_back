@@ -8,6 +8,7 @@ use App\Builders\VideoBuilder;
 use App\Enums\VideoStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property string $slug
  * @property int $category_id
+ * @property int $created_by_id
  * @property string|null $description
  * @property int|null $duration_seconds
  * @property string|null $thumbnail_url
@@ -25,10 +27,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  * @property Carbon $created_at
  *
- * Relations
+ *  Relations
  * @property Category $category
+ * @property User $user
  *
- *     - Support.
+ *  Support.
  *
  * @method VideoBuilder newQuery()
  * @method static VideoBuilder query()
@@ -48,6 +51,18 @@ class Video extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * @return HasOne<User, $this>
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(
+            User::class,
+            'id',
+            'created_by_id'
+        );
     }
 
     /**
