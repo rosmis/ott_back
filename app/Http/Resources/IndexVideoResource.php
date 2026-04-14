@@ -23,7 +23,7 @@ class IndexVideoResource extends JsonResource
             'thumbnail_url' => $this->resource->thumbnail_url,
             'category' => $this->whenLoaded(
                 'category',
-                static fn (): array => [
+                fn (): array => [
                     'id' => $this->resource->category->id,
                     'name' => $this->resource->category->name,
                 ]

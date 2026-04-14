@@ -16,8 +16,8 @@ use Illuminate\Support\Str;
  */
 class VideoFactory extends Factory
 {
-    private const string VIDEO_THUMBNAIL_PATH = 'video/%d/thumbnail_%d.png';
-    private const string VIDEO_PATH = 'video/%d/%d.png';
+    private const string VIDEO_THUMBNAIL_PATH = 'videos/%d/thumbnail_%s.png';
+    private const string VIDEO_PATH = 'videos/%d/%s.png';
 
     public function definition(): array
     {
@@ -50,7 +50,7 @@ class VideoFactory extends Factory
                 $filename = sprintf(
                     self::VIDEO_THUMBNAIL_PATH,
                     $video->id,
-                    Str::ulid()->toString(),
+                    strtolower((string) Str::ulid()),
                 );
 
                 Storage::put($filename, $file);
@@ -71,7 +71,7 @@ class VideoFactory extends Factory
                 $filename = sprintf(
                     self::VIDEO_PATH,
                     $video->id,
-                    Str::ulid()->toString(),
+                    strtolower((string) Str::ulid()),
                 );
 
                 Storage::put($filename, $file);
