@@ -13,8 +13,8 @@ final readonly class UpdateOrCreateVideoDto
         public string $title,
         public int $categoryId,
         public ?string $description,
-        public UploadedFile $thumbnail,
-        public UploadedFile $video,
+        public ?UploadedFile $thumbnail,
+        public ?UploadedFile $video,
         public VideoStatus $status
     ) {
     }
@@ -28,8 +28,8 @@ final readonly class UpdateOrCreateVideoDto
             title: $data['title'],
             categoryId: (int) $data['category_id'],
             description: $data['description'] ?? null,
-            thumbnail: $data['thumbnail'],
-            video: $data['video'],
+            thumbnail: $data['thumbnail'] ?? null,
+            video: $data['video'] ?? null,
             status: VideoStatus::from($data['status']),
         );
     }

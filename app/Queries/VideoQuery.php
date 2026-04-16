@@ -26,7 +26,7 @@ class VideoQuery extends Query
 
     protected function configure(QueryConfig $config): void
     {
-        $config->filter('status');
+        $config->filters('status', 'title');
 
         $config->filter('whereCategoryId')
             ->scope()

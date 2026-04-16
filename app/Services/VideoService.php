@@ -11,6 +11,7 @@ use App\Dto\UpdateOrCreateVideoDto;
 use App\Models\User;
 use App\Models\Video;
 use App\Queries\VideoQuery;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Sylarele\HttpQueryConfig\Contracts\QueryResult;
 
@@ -26,6 +27,12 @@ readonly class VideoService
             ->paginateForQuery($query);
     }
 
+    public function findById(int $video_id): Video
+    {
+        return Video::query()
+            ->findOrFail($video_id);
+    }
+
     public function updateOrCreate(
         UpdateOrCreateVideoDto $dto,
         User $user,
@@ -37,15 +44,19 @@ readonly class VideoService
             'videoId' => $video_id,
         ]);
 
-        App::call(SaveVideoAction::class, [
-            'dto' => $dto,
-            'video' => $video,
-        ]);
+        if ($dto->video instanceof UploadedFile) {
+            App::call(SaveVideoAction::class, [
+                'dto' => $dto,
+                'video' => $video,
+            ]);
+        }
 
-        App::call(SaveVideoThumbnailAction::class, [
-            'dto' => $dto,
-            'video' => $video,
-        ]);
+        if ($dto->thumbnail instanceof UploadedFile) {
+            App::call(SaveVideoThumbnailAction::class, [
+                'dto' => $dto,
+                'video' => $video,
+            ]);
+        }
     }
 
     public function delete(int $video_id): void

@@ -9,6 +9,7 @@ use App\Http\Requests\CreateVideoRequest;
 use App\Http\Requests\IndexVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Http\Resources\IndexVideoResource;
+use App\Http\Resources\VideoResource;
 use App\Services\VideoService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,6 +31,15 @@ class VideoController extends Controller
         $videos->loadMissing(['category', 'user']);
 
         return IndexVideoResource::collection($videos)->response();
+    }
+
+    public function show(int $video_id): JsonResponse
+    {
+        $video = $this
+            ->videoService
+            ->findById($video_id);
+
+        return VideoResource::make($video)->response();
     }
 
     public function store(CreateVideoRequest $request): JsonResponse
