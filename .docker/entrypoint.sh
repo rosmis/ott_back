@@ -8,6 +8,8 @@ until php artisan db:monitor; do
 done
 
 # Run migrations
+php artisan key:generate
 php artisan migrate --force
+php artisan db:seed --force
 
 exec docker-php-entrypoint "$@"
