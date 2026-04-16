@@ -11,6 +11,7 @@ use App\Models\User;
 use Database\Factories\CategoryFactory;
 use Database\Factories\UserFactory;
 use Database\Factories\VideoFactory;
+use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -69,6 +70,47 @@ final class VideoControllerTest extends TestCase
             ->actingAs($this->editor)
             ->delete(route('videos.destroy', ['video_id' => $video->id]))
             ->assertForbidden();
+    }
+
+    #[TestDox(
+        'Given an authenticated admin user,
+         When trying to get the videos index,
+         Then it should return a 200 ok response with a list of videos.'
+    )]
+    public function testShouldGetVideosAsAdmin(): void
+    {
+        VideoFactory::new()
+            ->setCategory($this->category->id)
+            ->setUser($this->editor->id)
+            ->count(3)
+            ->create();
+
+        $response = $this
+            ->actingAs($this->admin)
+            ->get(route('videos.index'));
+
+        $response
+            ->assertOk()
+            ->assertJson(
+                static fn (AssertableJson $json) => $json
+                    ->has(
+                        'data',
+                        static fn (AssertableJson $json) => $json
+                            ->count(3)
+                            ->each(
+                                static fn (AssertableJson $json) => $json
+                                    ->whereType('id', 'integer')
+                                    ->whereType('title', 'string')
+                                    ->whereType('duration', 'integer')
+                                    ->whereType('status', 'string')
+                                    ->whereType('thumbnail_url', 'string')
+                                    ->whereType('category', 'array')
+                                    ->whereType('user', 'array')
+                                    ->whereType('published_at', 'string')
+                            )
+                    )
+                    ->etc()
+            );
     }
 
     #[TestDox(
