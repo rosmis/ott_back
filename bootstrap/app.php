@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(static function (Middleware $middleware): void {
         $middleware->prepend(HandleCors::class);
         $middleware->statefulApi();
+        $middleware->redirectGuestsTo(static fn () => null);
     })
     ->withExceptions(static function (Exceptions $exceptions): void {
         // display exception error message if exception  instance of BusinessException
