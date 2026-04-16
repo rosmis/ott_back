@@ -8,6 +8,7 @@ use App\Enums\VideoStatus;
 use App\Models\Category;
 use App\Models\User;
 use Database\Factories\CategoryFactory;
+use Database\Factories\UserFactory;
 use Database\Factories\VideoFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -19,24 +20,38 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $user = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $admin = UserFactory::new()
+            ->setAdmin()
+            ->state([
+                'email' => 'admin@example.com',
+            ])
+            ->createOne();
+
+        $editor = UserFactory::new()
+            ->state([
+                'email' => 'editor@example.com',
+            ])
+            ->createOne();
 
         $categories = CategoryFactory::new()
             ->createMany(3);
 
         VideoFactory::new()
-            ->setUser($user->id)
             ->withThumbnail()
             ->withVideo()
-            ->sequence(static function (Sequence $sequence) use ($categories): array {
+            ->sequence(static function (Sequence $sequence) use (
+                $categories,
+                $admin,
+                $editor
+            ): array {
                 /** @var Category $category */
                 $category = $categories->get($sequence->index)
                     ?? $categories->random();
+                /** @var User $randomUser */
+                $randomUser = fake()->randomElement([$admin, $editor]);
 
                 return [
+                    'created_by_id' => $randomUser->id,
                     'category_id' => $category->id,
                     'status' => match ($sequence->index) {
                         0 => VideoStatus::Draft,
@@ -45,6 +60,6 @@ class DatabaseSeeder extends Seeder
                     },
                 ];
             })
-            ->createMany(10);
+            ->createMany(20);
     }
 }

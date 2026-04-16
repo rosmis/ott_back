@@ -10,8 +10,10 @@ use App\Http\Requests\IndexVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Http\Resources\IndexVideoResource;
 use App\Http\Resources\VideoResource;
+use App\Models\Video;
 use App\Services\VideoService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,6 +60,12 @@ class VideoController extends Controller
 
     public function update(UpdateVideoRequest $request, int $video_id): JsonResponse
     {
+        $video = $this
+            ->videoService
+            ->findById($video_id);
+
+        Gate::authorize('update', [Video::class, $video]);
+
         DB::transaction(
             fn () => $this
                 ->videoService
@@ -73,6 +81,8 @@ class VideoController extends Controller
 
     public function destroy(int $video_id): JsonResponse
     {
+        Gate::authorize('delete', Video::class);
+
         $this
             ->videoService
             ->delete($video_id);
