@@ -11,10 +11,10 @@ use App\Models\User;
 use Database\Factories\CategoryFactory;
 use Database\Factories\UserFactory;
 use Database\Factories\VideoFactory;
+use Feature\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
-use Tests\TestCase;
 
 /**
  * @internal

@@ -15,12 +15,12 @@ use App\Models\Video;
 use App\Services\VideoService;
 use Database\Factories\CategoryFactory;
 use Database\Factories\UserFactory;
+use Feature\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
-use Tests\TestCase;
 
 /**
  * @internal
